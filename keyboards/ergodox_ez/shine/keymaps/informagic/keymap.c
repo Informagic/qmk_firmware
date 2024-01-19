@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_UP, KC_MS_DOWN,                                                                                                 KC_MS_LEFT, KC_MS_RIGHT, KC_MS_BTN1, KC_MS_BTN2, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, HSV_172_255_255,LAG(KC_8), KC_TRANSPARENT,
                                                                                                                     HSV_86_255_128, KC_TRANSPARENT,
-                                                                                    RGB_VAD,        RGB_VAI,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, RGB_HUI
+                                                                                    S(KC_ENT),        RGB_VAD,        RGB_VAI, KC_TRANSPARENT, RGB_HUI, S(KC_ENT)
   ),
   [2] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -90,54 +90,9 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ENTER),
 };
 
-static bool left_shift_pressed = false;
-static bool right_shift_pressed = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    /*
-    case KC_LSFT: // Left thumb button
-        if (record->event.pressed) {
-            if (get_mods() & MOD_BIT(KC_RSFT)) {
-                // If left thumb is held and right thumb is tapped, send Enter
-                tap_code(KC_ENT);
-                unregister_mods(MOD_BIT(KC_RSFT));
-            } else {
-                // If only left thumb is held, send Left Shift
-                left_shift_pressed = true;
-                register_mods(MOD_BIT(KC_LSFT));
-            }
-        } else {
-            // Release Left thumb
-            left_shift_pressed = false;
-            if (!right_shift_pressed) {
-                // Unregister Left Shift only if Right Shift is not pressed
-                unregister_mods(MOD_BIT(KC_LSFT));
-            }
-        }
-        return false;
 
-    case KC_RSFT: // Right thumb button
-        if (record->event.pressed) {
-            if (get_mods() & MOD_BIT(KC_LSFT)) {
-                // If right thumb is held and left thumb is tapped, send Enter
-                tap_code(KC_ENT);
-                unregister_mods(MOD_BIT(KC_LSFT));
-            } else {
-                // If only right thumb is held, send Right Shift
-                right_shift_pressed = true;
-                register_mods(MOD_BIT(KC_RSFT));
-            }
-        } else {
-            // Release Right thumb
-            right_shift_pressed = false;
-            if (!left_shift_pressed) {
-                // Unregister Right Shift only if Left Shift is not pressed
-                unregister_mods(MOD_BIT(KC_RSFT));
-            }
-        }
-        return false;
-*/
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -162,17 +117,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
-/*
-  // Thumb keys acting as Space when tapped
-    if (record->event.pressed) {
-        switch (keycode) {
-            case KC_LSFT:
-            case KC_RSFT:
-                tap_code(KC_SPC);  // Send Space
-                return false;  // or true, depending on your needs
-        }
-    }
-*/
+
   return process_record_user_shifted(keycode, record);
 }
 
@@ -350,15 +295,4 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
     decrease_brightness();
-}
-
-void suspend_power_down_user(void) {
-    left_shift_pressed = false;
-    right_shift_pressed = false;
-}
-
-bool raw_hid_receive_user(const uint8_t *data, uint8_t length) {
-    left_shift_pressed = false;
-    right_shift_pressed = false;
-    return true;
 }
