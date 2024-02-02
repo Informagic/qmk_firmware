@@ -26,7 +26,9 @@ enum unicode_names {
   NEO2_L1_AND_2_DEAD_CIRCUMFLEX,
   NEO2_L1_AND_2_DEAD_CEDILLA,
   NEO2_L1_AND_2_DEAD_TILDE,
-  NEO2_L1_AND_2_DEAD_CARON
+  NEO2_L1_AND_2_DEAD_CARON,
+
+  NEO2_L3_ELLIPSIS
 };
 
 
@@ -38,6 +40,17 @@ enum unicode_names {
 #define NEO2_ACUTE_CEDILLA      UP(NEO2_L1_AND_2_DEAD_ACUTE, NEO2_L1_AND_2_DEAD_CEDILLA)
 #define NEO2_GRAVE_TILDE        UP(NEO2_L1_AND_2_DEAD_GRAVE, NEO2_L1_AND_2_DEAD_TILDE)
 #define NEO2_CIRCUMFLEX_CARON   UP(NEO2_L1_AND_2_DEAD_CIRCUMFLEX, NEO2_L1_AND_2_DEAD_CARON)
+
+#define NEO2_L3_ELLIPSIS             UC(0x2026)
+
+#define NEO2_L4_FEMININE_ORDINAL     UC(0x00AA)                  // ª
+#define NEO2_L4_MASCULINE_ORDINAL    UC(0x00BA)                  // º
+#define NEO2_L4_NUMERO_SIGN          KC_NO                       // №
+#define NEO2_L4_MIDDLE_DOT           UC(0x00B7)                  // ·
+#define NEO2_L4_BRITISH_POUND        UC(0x00A3)                  // £
+#define NEO2_L4_CURRENCY_SIGN        UC(0x00A4)                  // ¤
+#define NEO2_L4_INV_EXCLAMATION      UC(0x00A1)                  // ¡
+#define NEO2_L4_INV_QUESTIONMARK     UC(0x00BF)                  // ¿
 
 #if(0)
 // NEO_1_AND_2 special characters
